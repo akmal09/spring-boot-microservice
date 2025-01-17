@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:7.0.5
+    container_name: mongodb_product
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongodb_product212
+      MONGO_INITDB_ROOT_PASSWORD: mantap212#
+      MONGO_INITDB_DATABASE: product_service
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+
+#  docker run -d --name mongodb-container -e MONGO_INITDB_ROOT_USERNAME=mongodb_product212 -e MONGO_INITDB_ROOT_PASSWORD=mantap212# -e MONGO_INITDB_DATABASE=product_service -p 27017:27017 mongo:7.0.5
