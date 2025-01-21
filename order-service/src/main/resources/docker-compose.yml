@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container-order-svc
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: order_service
+      MYSQL_USER: mysql_product212
+      MYSQL_PASSWORD: mantap212#
+    ports:
+      - "3307:3306"
