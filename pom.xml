@@ -13,7 +13,7 @@
 	</properties>
 
 	<modules>
-		<module>product-services</module>
+		<module>product-service</module>
 		<module>inventory-service</module>
 		<module>order-service</module>
 	</modules>

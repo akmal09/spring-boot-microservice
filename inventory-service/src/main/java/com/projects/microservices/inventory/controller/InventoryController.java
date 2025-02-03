@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 public class InventoryController {
     private final InventoryService inventoryService;
 
-    @GetMapping
+    @GetMapping("/is-in-stock/{skuCode}/{quantity}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean isInStock(@RequestParam String skuCode, @RequestParam Integer quantity) {
+    public boolean isInStock(@PathVariable String skuCode, @PathVariable Integer quantity) {
         return inventoryService.isInStock(skuCode, quantity);
     }
 }

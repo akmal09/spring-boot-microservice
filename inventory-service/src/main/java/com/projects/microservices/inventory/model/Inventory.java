@@ -16,6 +16,7 @@ import org.springframework.ldap.odm.annotations.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Inventory {
+    @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
