@@ -16,4 +16,11 @@ public class InventoryController {
     public boolean isInStock(@PathVariable String skuCode, @PathVariable Integer quantity) {
         return inventoryService.isInStock(skuCode, quantity);
     }
+
+    @PostMapping("/calculate-stock/{skuCode}/{quantity}")
+    public boolean calculateInventory(@PathVariable String skuCode, @PathVariable Integer quantity) {
+        return inventoryService.calculateStock(skuCode,quantity);
+    }
+
+
 }

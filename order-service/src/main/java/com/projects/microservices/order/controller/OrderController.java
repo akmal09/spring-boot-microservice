@@ -22,16 +22,9 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> placeOrder(@RequestBody OrderRequest orderRequest) {
-
-        String url = "http://inventory-service/api/inventory/is-in-stock/" + orderRequest.getSkuCode()+"/"+orderRequest.getQuantity();
-        Boolean productExists = restTemplate.getForObject(url, Boolean.class);
-
-        if (Boolean.FALSE.equals(productExists)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("sku does not exist");
-        }
-
-        return ResponseEntity.ok("Order placed successfully");
+        return orderService.placeOrder(orderRequest);
     }
+
 
 
 
