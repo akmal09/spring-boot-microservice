@@ -5,6 +5,7 @@ import com.projects.microservice.product.dto.ProductResponse;
 import com.projects.microservice.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllProducts() {
+    public ResponseEntity<?> getAllProducts() {
         return productService.getAllProducts();
     }
 }
