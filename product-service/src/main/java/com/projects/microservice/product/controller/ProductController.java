@@ -3,6 +3,9 @@ package com.projects.microservice.product.controller;
 import com.projects.microservice.product.dto.ProductRequest;
 import com.projects.microservice.product.dto.ProductResponse;
 import com.projects.microservice.product.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +20,22 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @Operation(summary = "Create a Product", description = "Create product with json request body")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully add product"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest) {
         return productService.createProduct(productRequest);
     }
 
+    @Operation(summary = "Get all products", description = "Get list of product that has been saved")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful created"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllProducts() {
         return productService.getAllProducts();
     }
