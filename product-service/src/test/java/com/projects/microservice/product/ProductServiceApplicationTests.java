@@ -8,9 +8,11 @@ import com.projects.microservice.product.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,10 +20,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-
+@Autowired(required = true)
 public class ProductServiceApplicationTests {
+    @Autowired
+    private MockMvc mockMvc;
 
     @Mock
     private ProductRepository productRepository;
@@ -50,6 +56,13 @@ public class ProductServiceApplicationTests {
 //        ProductResponse productResponse = productService.createProduct(productRequest);
 //        System.out.println(productResponse);
 //        assertTrue(productResponse.isCreated());
+    }
+
+    @Test
+    void healthCheck()throws Exception{
+        mockMvc.perform(post("/api/product/health"))
+                .andExpect(status().isOk());
+
     }
 
     @Test

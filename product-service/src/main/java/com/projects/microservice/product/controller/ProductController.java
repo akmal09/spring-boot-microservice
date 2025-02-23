@@ -39,4 +39,9 @@ public class ProductController {
     public ResponseEntity<?> getAllProducts() {
         return productService.getAllProducts();
     }
+
+    @GetMapping("/health")
+    public ResponseEntity<?> healthCheck(){
+        return new ResponseEntity<>("health check ok",HttpStatus.OK);
+    }
 }
