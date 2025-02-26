@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final CacheManager cacheManager;
 
     @Operation(summary = "Create a Product", description = "Create product with json request body")
     @ApiResponses(value = {
@@ -40,8 +42,26 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable Long id){
+        return productService.getProductByIdCache(id);
+    }
+    @PutMapping("/{id}/{newName}")
+    public ResponseEntity<?> update(@PathVariable Long id, @PathVariable String newName){
+        return productService.updateProduct(id, newName);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        return productService.deleteProduct(id);
+    }
+
     @GetMapping("/health")
     public ResponseEntity<?> healthCheck(){
+        return new ResponseEntity<>("health check ok",HttpStatus.OK);
+    }
+    @GetMapping("/cek-cache")
+    public ResponseEntity<?> cache(){
+        cacheManager.getCache("productsCache");
         return new ResponseEntity<>("health check ok",HttpStatus.OK);
     }
 }
